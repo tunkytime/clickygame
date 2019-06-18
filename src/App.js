@@ -4,13 +4,27 @@ import Navbar from "./components/Navbar";
 import characters from "./characters.json";
 import "./style.css";
 
+let count = 0;
+
 class App extends Component {
   state = {
     characters
   };
 
+  handleClick = id => {
+    let result;
+    characters.forEach(character => {
+      if (character.id === id) {
+        return (result = character);
+      }
+    });
+    console.log(result.name);
+    this.shuffleCharacters(id);
+  };
+
   shuffleCharacters = id => {
-    // on button click, register which character was clicked and shuffle the characters array
+    this.state.characters.sort(() => Math.random() - 0.5);
+    this.setState({ characters });
   };
 
   render() {
@@ -20,8 +34,9 @@ class App extends Component {
         <div className="container mx-auto">
           <div className="row">
             {this.state.characters.map(character => (
-              <div className="col-sm-3">
+              <div className="col-sm-3" key={count++}>
                 <CharacterCard
+                  handleClick={this.handleClick}
                   id={character.id}
                   key={character.id}
                   name={character.name}

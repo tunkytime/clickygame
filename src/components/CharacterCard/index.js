@@ -10,9 +10,13 @@ function CharacterCard(props) {
       <div className="card-body">
         <h5 className="card-title">{props.name}</h5>
         <p className="card-text" />
-        <a href="#" className="btn btn-primary">
+        <button
+          id={props.id}
+          className="btn btn-primary btn-lg"
+          onClick={() => props.handleClick(props.id)}
+        >
           Go somewhere
-        </a>
+        </button>
       </div>
     </div>
   );

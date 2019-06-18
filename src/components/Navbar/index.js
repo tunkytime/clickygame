@@ -1,20 +1,13 @@
-import React, { Component } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
+import React from "react";
 
-class Navbar extends Component {
-  render() {
-    return (
-      <AppBar position="static">
-        <Toolbar variant="dense">
-          <Typography variant="h6" color="inherit">
-            Clicky Game
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    );
-  }
+function Navbar(props) {
+  return (
+    <nav className="navbar navbar-expand-lg text-white navbar-dark bg-dark">
+      <a className="navbar-brand" href="#">
+        Clicky Game
+      </a>
+    </nav>
+  );
 }
 
 export default Navbar;

@@ -3,7 +3,7 @@ import "./style.css";
 
 function CharacterCard(props) {
   return (
-    <div className="card m-2 text-center">
+    <div className="card mt-3 mb-3 text-center">
       <div className="img-container">
         <img src={props.image} alt={props.name} />
       </div>

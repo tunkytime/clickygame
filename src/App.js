@@ -1,40 +1,69 @@
 import React, { Component } from "react";
 import CharacterCard from "./components/CharacterCard";
 import Navbar from "./components/Navbar";
+import Container from "./components/Container";
 import characters from "./characters.json";
 import "./style.css";
 
-let count = 0;
+let clickedArr = [];
 
 class App extends Component {
   state = {
-    characters
+    characters,
+    clicked: [],
+    score: 0,
+    highScore: 0
   };
 
+  makeid(l) {
+    let text = "";
+    let char_list =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (let i = 0; i < l; i++) {
+      text += char_list.charAt(Math.floor(Math.random() * char_list.length));
+    }
+    return text;
+  }
+
   handleClick = id => {
-    let result;
     characters.forEach(character => {
       if (character.id === id) {
-        return (result = character);
+        if (clickedArr.includes(id)) {
+          clickedArr = [];
+          this.setState({ clicked: [], score: 0 });
+          this.updateHighScore();
+        } else {
+          clickedArr.push(id);
+          this.setState({
+            clicked: clickedArr,
+            score: this.state.score + 1
+          });
+        }
       }
     });
-    console.log(result.name);
     this.shuffleCharacters(id);
   };
 
-  shuffleCharacters = id => {
+  shuffleCharacters = () => {
     this.state.characters.sort(() => Math.random() - 0.5);
     this.setState({ characters });
+  };
+
+  updateHighScore = () => {
+    if (this.state.score > this.state.highScore) {
+      this.setState({ highScore: this.state.score });
+    }
   };
 
   render() {
     return (
       <>
-        <Navbar />
-        <div className="container mx-auto">
+        <Navbar score={this.state.score} highScore={this.state.highScore} />
+        <Container>
+          {" "}
           <div className="row">
             {this.state.characters.map(character => (
-              <div className="col-sm-3" key={count++}>
+              <div className="col-sm-3" key={this.makeid(9)}>
                 <CharacterCard
                   handleClick={this.handleClick}
                   id={character.id}
@@ -45,7 +74,7 @@ class App extends Component {
               </div>
             ))}
           </div>
-        </div>
+        </Container>
       </>
     );
   }

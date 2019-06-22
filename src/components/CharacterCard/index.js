@@ -15,7 +15,7 @@ function CharacterCard(props) {
           className="btn btn-primary btn-lg"
           onClick={() => props.handleClick(props.id)}
         >
-          Go somewhere
+          Click
         </button>
       </div>
     </div>
